@@ -1,3 +1,122 @@
 #attendance-display{
 	white-space: pre-wrap;
 }
+
+body {
+	display: flex;
+	flex-direction: column;
+  background-color: #212121;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+
+input[type="text"], textarea {
+  background-color: #2e2e2e;
+  color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  background-color: #4caf50;
+  color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+.dark-mode {
+  filter: invert(1);
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background-color: #f5f5f5;
+    color: #212121;
+  }
+  
+  .container {
+    background-color: #fff;
+  }
+  
+  input[type="text"], textarea {
+    background-color: #fff;
+    color: #212121;
+  }
+  
+  input[type="submit"] {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .dark-mode {
+    filter: none;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+	border: 1px solid #000;
+	
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+	border: 1px solid #000;
+}
+
+th {
+  background-color: #212121;
+  color: #f5f5f5;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #111;
+}
+
+.attendance-total {
+  font-weight: bold;
+}
+
+.absentees {
+  margin-top: 20px;
+  font-weight: bold;
+}
