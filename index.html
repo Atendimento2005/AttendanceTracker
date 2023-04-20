@@ -10,14 +10,17 @@
 </head>
 
 <body>
+	<h1>12J Attendance Tracker</h1>
+	<table id="attendance-table" class="attendance-table"></table>
 	<input type="text" id="time-input" placeholder="8:00am to 8:40am">
 	<input type="text" id="teacher-input" placeholder="Milton Saha">
 	<input type="text" id="subject-input" placeholder="Maths">
 	<input type="text" id="topic-input" placeholder="Topics taught">
-	<table id="attendance-table" class="attendance-table"></table>
-	<input type="submit" id='submit-button' value="Update details">
+	<div class="buttons">
+		<input type="submit" id='submit-button' value="Update details">
+		<input type="submit" id='copy-button' value="Copy details">
+	</div>
 	<div id="attendance-display"></div>
-	<input type="submit" id='copy-button' value="Copy details">
 	<script>
 		// Get current date and time
 		const today = new Date();
@@ -36,12 +39,15 @@
 		let absent = 0;
 		let absentees = [];
 
+		const rong = ['#81fc716e', '#ff4b4b6e']
+
 		// Add event listeners to attendance cells
 		const attendanceTable = document.getElementById('attendance-table');
 		attendanceTable.addEventListener('click', (event) => {
 			if (event.target.matches('.attendance-cell')) {
 				if (event.target.textContent === 'Absent') {
 					event.target.textContent = 'Present';
+					event.target.style.backgroundColor = rong[0];
 					present++;
 					absent--;
 					const index = absentees.indexOf(event.target.parentNode.firstChild.textContent);
@@ -50,6 +56,7 @@
 					}
 				} else {
 					event.target.textContent = 'Absent';
+					event.target.style.backgroundColor = rong[1];
 					present--;
 					absent++;
 					absentees.push(event.target.parentNode.firstChild.textContent);
@@ -103,7 +110,7 @@
 		// Update attendance summary
 		function updateAttendanceSummary() {
 			total = present + absent;
-			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.join('\n')}`;
+			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.sort().join('\n')}`;
 			const attendanceDisplay = document.getElementById('attendance-display')
 			attendanceDisplay.textContent=attendanceSummary
 			console.log(attendanceSummary);

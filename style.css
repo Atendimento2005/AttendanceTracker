@@ -1,5 +1,62 @@
-#attendance-display{
-	white-space: pre-wrap;
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap');
+
+#attendance-display {
+    margin-top: 1rem;
+    white-space: pre-wrap;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+:root {
+    --actual-color: #ff4b4b6e;
+    --dhop-color: #81fc716e;
+    --onno-dhop-color: #ff4b4b6e;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.buttons * {
+    font-weight: 600;
+}
+
+* {
+    font-family: 'Montserrat', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+td:last-child {
+    cursor: pointer;
+    background-color: var(--actual-color);
+    width: 5rem;
+    text-align: center;
+    font-weight: 500;
+
+}
+
+body {
+    --sb-track-color: #1f1f1f;
+    --sb-thumb-color: #565656;
+    --sb-size: 8px;
+
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+body::-webkit-scrollbar {
+    width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 10px;
+
 }
 
 body {
@@ -50,6 +107,8 @@ h1 {
   font-size: 36px;
   font-weight: bold;
   margin-bottom: 20px;
+  text-align: center  ;
+  letter-spacing: .05rem;
 }
 
 h2 {
