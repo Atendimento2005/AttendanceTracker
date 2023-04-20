@@ -108,7 +108,7 @@ h1 {
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center  ;
-  letter-spacing: .05rem;
+  letter-spacing: -.01rem;
 }
 
 h2 {
