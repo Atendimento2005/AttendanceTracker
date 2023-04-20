@@ -10,8 +10,13 @@
 </head>
 
 <body>
+	<input type="text" id="time-input" placeholder="8:00am to 8:40am">
+	<input type="text" id="teacher-input" placeholder="Milton Saha">
+	<input type="text" id="subject-input" placeholder="Maths">
+	<input type="text" id="topic-input" placeholder="Topics taught">
 	<div id="attendance-table"></div>
-	<button class="btn" onclick="copyAttendanceData()">Copy!</button>
+	<input type="button" id='submit-button' value="Update details!">
+	<div id="attendance-display"></div>
 	<script>
 		// Get current date and time
 		const today = new Date();
@@ -52,23 +57,21 @@
 			}
 		});
 
+		const submitButton = document.getElementById('submit-button');
+		submitButton.addEventListener('click', updateClassDetails);
+
+
 		function updateClassDetails() {
-			const newTeacher = prompt('Enter teacher name:');
-			const newSubject = prompt('Enter subject:');
-			const newTopic = prompt('Enter topic:');
-			const newTime = prompt('Enter time:')
-			if (newTeacher !== null) {
-				teacher = newTeacher;
-			}
-			if (newSubject !== null) {
-				subject = newSubject;
-			}
-			if (newTopic !== null) {
-				topic = newTopic;
-			}
-			if (newTime !== null) {
-				time = newTime;
-			}
+			const teacherField = document.getElementById('teacher-input');
+			const subjectField = document.getElementById('subject-input');
+			const timeField = document.getElementById('time-input');
+			const topicField = document.getElementById('topic-input');
+			
+			teacher = teacherField.value || '';
+			subject = subjectField.value || '';
+			time = timeField.value || '';
+			topic = topicField.value || '';
+
 			updateAttendanceSummary();
 		}
 
@@ -77,6 +80,7 @@
 			total = present + absent;
 			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.join('\n')}`;
 			const attendanceDisplay = document.getElementById('attendance-display')
+			attendanceDisplay.textContent=attendanceSummary
 			console.log(attendanceSummary);
 		}
 
@@ -95,18 +99,6 @@
 			downloadLink.href = url;
 			downloadLink.download = `attendance-${date}.csv`;
 			downloadLink.click();
-		}
-
-		async function copyAttendanceData() {
-			await updateClassDetails();
-			total = present + absent;
-			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.join('\n')}`;
-			try {
-				await navigator.clipboard.writeText(attendanceSummary);
-				alert('Copied to clipboard!')
-			} catch (err) {
-				console.error('Failed to copy: ', err);
-			}
 		}
 
 		// Initialize attendance table
