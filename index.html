@@ -6,23 +6,23 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="style.css">
-	<title>Document</title>
+	<title>AttendanceTracker</title>
 </head>
 
 <body>
 	<div id="attendance-table"></div>
-	<div id="attendance-display"></div>
+	<button class="btn" onclick="copyAttendanceData()">Copy!</button>
 	<script>
 		// Get current date and time
 		const today = new Date();
 		const date = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
-		const time = `${today.getHours()}:${today.getMinutes()} ${today.getHours() >= 12 ? 'pm' : 'am'}`;
 
 		// Fill in class and teacher information
 		const classAndSection = 'XII J';
-		const teacher = '';
-		const subject = '';
-		const topic = '';
+		let time = '';
+		let teacher = '';
+		let subject = '';
+		let topic = '';
 
 		// Initialize attendance counts
 		let total = 40;
@@ -52,12 +52,31 @@
 			}
 		});
 
+		function updateClassDetails() {
+			const newTeacher = prompt('Enter teacher name:');
+			const newSubject = prompt('Enter subject:');
+			const newTopic = prompt('Enter topic:');
+			const newTime = prompt('Enter time:')
+			if (newTeacher !== null) {
+				teacher = newTeacher;
+			}
+			if (newSubject !== null) {
+				subject = newSubject;
+			}
+			if (newTopic !== null) {
+				topic = newTopic;
+			}
+			if (newTime !== null) {
+				time = newTime;
+			}
+			updateAttendanceSummary();
+		}
+
 		// Update attendance summary
 		function updateAttendanceSummary() {
 			total = present + absent;
 			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.join('\n')}`;
 			const attendanceDisplay = document.getElementById('attendance-display')
-			attendanceDisplay.textContent = attendanceSummary
 			console.log(attendanceSummary);
 		}
 
@@ -78,6 +97,18 @@
 			downloadLink.click();
 		}
 
+		async function copyAttendanceData() {
+			await updateClassDetails();
+			total = present + absent;
+			const attendanceSummary = `Date: ${date}\nTime: ${time}\nClass and section: ${classAndSection}\nTeacher: ${teacher}\nSubject: ${subject}\nTopic: ${topic}\nTotal: ${total}\nPresent: ${present}\nAbsent: ${absent}\n\nNames of absentees:\n${absentees.join('\n')}`;
+			try {
+				await navigator.clipboard.writeText(attendanceSummary);
+				alert('Copied to clipboard!')
+			} catch (err) {
+				console.error('Failed to copy: ', err);
+			}
+		}
+
 		// Initialize attendance table
 		function initializeAttendanceTable() {
 			const attendanceTable = document.getElementById('attendance-table');
@@ -95,6 +126,7 @@
 				absentees.push(names[i])
 				absent++;
 			}
+			// updateClassDetails();
 			updateAttendanceSummary();
 		}
 		// Call the initializeAttendanceTable function to set up the table
