@@ -15,8 +15,9 @@
 	<input type="text" id="subject-input" placeholder="Maths">
 	<input type="text" id="topic-input" placeholder="Topics taught">
 	<table id="attendance-table" class="attendance-table"></table>
-	<input type="submit" id='submit-button' value="Update details!">
+	<input type="submit" id='submit-button' value="Update details">
 	<div id="attendance-display"></div>
+	<input type="submit" id='copy-button' value="Copy details">
 	<script>
 		// Get current date and time
 		const today = new Date();
@@ -60,6 +61,9 @@
 		const submitButton = document.getElementById('submit-button');
 		submitButton.addEventListener('click', updateClassDetails);
 
+		const copyButton = document.getElementById('copy-button');
+		copyButton.addEventListener('click', copyAttendanceDisplay);
+		
 
 		function updateClassDetails() {
 			const teacherField = document.getElementById('teacher-input');
@@ -74,6 +78,27 @@
 
 			updateAttendanceSummary();
 		}
+
+		function copyAttendanceDisplay() {
+			// Get the attendance summary element
+			const summaryElement = document.getElementById('attendance-display');
+			
+			// Create a range object for the summary element
+			const range = document.createRange();
+			range.selectNode(summaryElement);
+			
+			// Select the contents of the range
+			const selection = window.getSelection();
+			selection.removeAllRanges();
+			selection.addRange(range);
+			
+			// Copy the selection to the clipboard
+			document.execCommand('copy');
+			
+			// Deselect the range
+			selection.removeAllRanges();
+		}
+
 
 		// Update attendance summary
 		function updateAttendanceSummary() {
